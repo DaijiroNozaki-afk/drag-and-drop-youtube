@@ -52,7 +52,8 @@ const QuoteList = React.memo(function QuoteList({ quotes }) {
 
 function VerticalList() {
   const [state, setState] = useState({ quotes: initial });
-
+  // console.log({ quotes: initial });
+  // console.log(state);
   function onDragEnd(result) {
     if (!result.destination) {
       return;

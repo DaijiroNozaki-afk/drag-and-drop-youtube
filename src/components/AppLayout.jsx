@@ -10,6 +10,9 @@ function AppLayout() {
       <Link to="/verticallist" className="p-header-link">
         VerticalList
       </Link>
+      <Link to="/taskapp" className="p-header-link">
+        TaskApp
+      </Link>
       <div className="u-mb-10"></div>
       <Outlet />
     </>

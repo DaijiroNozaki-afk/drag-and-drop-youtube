@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 const items = [
@@ -41,16 +42,23 @@ const reorder = (list, startIndex, endIndex) => {
   const removed = list.splice(startIndex, 1);
   // console.log(removed);
   list.splice(endIndex, 0, removed[0]);
+  return list;
 };
 function DragAndDrop() {
+  const [state, setState] = useState(items);
+  console.log(state);
   //ドラッグ後に位置が変わっていた場合、順序入れ替えをする
   const onDragEnd = (result) => {
     // console.log(result);
     if (!result.destination) {
       return;
     }
-    reorder(items, result.source.index, result.destination.index);
-    console.log(items);
+    if (result.destination.index === result.source.index) {
+      return;
+    }
+    const list = reorder(state, result.source.index, result.destination.index);
+    setState(list);
+    console.log(state);
   };
   return (
     <div>
@@ -63,7 +71,7 @@ function DragAndDrop() {
               ref={provided.innerRef}
               style={getListStyle(snapshot.isDraggingOver)}
             >
-              {items.map((item, index) => (
+              {state.map((item, index) => (
                 <Draggable key={item.id} draggableId={item.id} index={index}>
                   {(provided, snapshot) => (
                     <div
